@@ -16,14 +16,13 @@ public class LoginDao {
     private static ResultSet rs =null;
     private static PreparedStatement ps = null;
 
-    public static int login(String name, String pwd){
-        int i=0;
+    public static String teacherLogin(String name, String pwd){
+        String sf = null;
         boolean bl = false;
         String sql = "select count(*) as rowCount from teachers  where tName = ? and tPasswd = ?";
 
-
+        conn = DBUtil.getConnection();
         try {
-            conn = DBUtil.getConnection();
             ps = conn.prepareStatement(sql);
 
             ps.setString(1,name);
@@ -32,12 +31,11 @@ public class LoginDao {
             rs = ps.executeQuery();
 
             if (rs.first()){
-                i = 1;
+                sf = "老师";
             }
 
+            System.out.println(sf);
 
-
-            System.out.println(i);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,34 +43,39 @@ public class LoginDao {
             DBUtil.closeConn(rs, ps, conn);
         }
 
-        if(i == 1){
-            return i;
-        }else {
-            sql = "select count(*) as rowCount from students  where sName = ? and sPwd = ?";
 
-            try {
-                conn = DBUtil.getConnection();
-                ps = conn.prepareStatement(sql);
 
-                ps.setString(2, pwd);
-                ps.setString(1,name);
+        return sf;
+    }
+	
+	public static String studentLogin(String name, String pwd){
+        String sf = null;
+        boolean bl = false;
+        String sql = "select count(*) as rowCount from students  where sName = ? and sPwd = ?";
 
-                rs = ps.executeQuery();
+        conn = DBUtil.getConnection();
+        try {
+            ps = conn.prepareStatement(sql);
 
-                if (rs.first()){
-                    i = 2;
-                }
+            ps.setString(1,name);
+            ps.setString(2, pwd);
 
-                System.out.println(i);
+            rs = ps.executeQuery();
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }finally{
-                DBUtil.closeConn(rs, ps, conn);
+            if (rs.first()){
+                sf = "学生";
             }
-        }
 
-        return i;
+            System.out.println(sf);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            DBUtil.closeConn(rs, ps, conn);
+        }
+		
+        return sf;
     }
 
         // public static void main(String[] args) {
