@@ -7,7 +7,9 @@ import javax.persistence.Id;
  * Created by Gell on 2016/12/27.
  * 宿舍
  */
+@Entity
 public class Dormitorys {
+    @Id
     private int dId;
     private String dName;
     private String dClass;

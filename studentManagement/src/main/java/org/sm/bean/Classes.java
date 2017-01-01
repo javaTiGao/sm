@@ -7,7 +7,9 @@ import javax.persistence.Id;
  * Created by Gell on 2016/12/27.
  * 班级
  */
+@Entity
 public class Classes {
+    @Id
     private int cId;
     private String cName;
     private int cNum;

@@ -8,8 +8,9 @@ import java.util.Date;
  * Created by Gell on 2016/12/27.
  * 宿舍签到
  */
+@Entity
 public class DormitorySign {
-
+    @Id
     private int dId;
     private String dName;
     private String sSign;

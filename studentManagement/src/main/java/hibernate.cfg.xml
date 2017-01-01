@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- 配置数据库的基本信息 -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/studentmanagement</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+
+        <!-- 配置 SQL 语句显示或者 DDL 生成的策略 -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <!-- 配置一系列的 Mapping 文件。分为 xml/annotation 等方式 -->
+        <mapping class="org.sm.bean.Students" />
+        <mapping class="org.sm.bean.DormitorySign" />
+        <mapping class="org.sm.bean.Classes" />
+        <mapping class="org.sm.bean.Dormitorys" />
+
+    </session-factory>
+</hibernate-configuration>

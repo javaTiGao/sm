@@ -1,56 +1,36 @@
 package org.sm.service;
 
-import org.framework.annotation.Action;
-import org.framework.view.ForwardView;
-import org.framework.view.JsonView;
 import org.framework.view.RedirectView;
 import org.framework.web.ActionContext;
 import org.framework.web.ViewResult;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.junit.Test;
 import org.sm.bean.Students;
-import org.sm.dao.LoginDao;
+import org.sm.utils.SessionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * Created by Gell on 2016/12/28.
+ */
 public class LoginService {
-    @Action("/teacherLogin")
-    public static ViewResult login(){
+    @Test
+    public ViewResult login(){
         HttpServletRequest request = ActionContext.getContext().getRequest();
+        Session session = new SessionUtils().getSession();
+        String name = "mary";//request.getParameter("name")
+        String pwd = "";//request.getParameter("pwd")
 
-        String name = request.getParameter("name");
-        String pwd = request.getParameter("pwd");
-
-        System.out.println(name);
-        System.out.println(pwd);
-
-        String sf = new LoginDao().teacherLogin(name, pwd);
-
-        if (sf != null && sf.equals("老师")){
-            return new ForwardView("/show/teachers.jsp");
+        Query q = session.createQuery("SELECT count(*) from Students " +
+                "where sName = ? and sPwd = ?");
+        List<Students>list = q.setParameter(0,name).setParameter(1,pwd).list();
+        for(Students s : list){
+            System.out.println(s.getsName());
         }
 
 
-        return new ForwardView("login.html");
+        return new RedirectView("index.jsp");
     }
-
-    @Action("/studentLogin")
-    public static ViewResult studentLogin(){
-        HttpServletRequest request = ActionContext.getContext().getRequest();
-
-        String name = request.getParameter("name");
-        String pwd = request.getParameter("pwd");
-
-        System.out.println(name);
-        System.out.println(pwd);
-
-        String sf = new LoginDao().studentLogin(name, pwd);
-
-        if (sf != null && sf.equals("学生")){
-            return new ForwardView("/show/students.jsp");
-        }
-
-
-        return new ForwardView("login.html");
-    }
-
 }

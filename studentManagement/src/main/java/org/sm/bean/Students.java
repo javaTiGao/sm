@@ -7,25 +7,16 @@ import javax.persistence.Id;
  * Created by Gell on 2016/12/27.
  * 学生
  */
-
+@Entity
 public class Students {
-
+    @Id
     private int sId;
-    private String sNo;
+    private int sNo;
     private String sName;
     private String sSex;
     private String sClass;
     private String Headmaster;
     private String sPwd;
-    private String ssf;
-
-    public String getSsf() {
-        return ssf;
-    }
-
-    public void setSsf(String ssf) {
-        this.ssf = ssf;
-    }
 
     public String getsPwd() {
         return sPwd;
@@ -67,11 +58,11 @@ public class Students {
         this.sClass = sClass;
     }
 
-    public String getsNo() {
+    public int getsNo() {
         return sNo;
     }
 
-    public void setsNo(String sNo) {
+    public void setsNo(int sNo) {
         this.sNo = sNo;
     }
 
